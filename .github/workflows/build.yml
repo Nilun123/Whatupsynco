@@ -17,9 +17,11 @@ jobs:
       uses: gradle/actions/setup-gradle@v3
       with:
         gradle-version: '8.5'
-    - name: Configure AndroidX Properties
+    - name: Fix Manifest Icons & AndroidX
       working-directory: ./whatsapp_onedrive_autosync
       run: |
+        sed -i 's/@mipmap\/ic_launcher/@android:drawable\/sym_def_app_icon/g' app/src/main/AndroidManifest.xml
+        sed -i 's/@mipmap\/ic_launcher_round/@android:drawable\/sym_def_app_icon/g' app/src/main/AndroidManifest.xml
         echo "android.useAndroidX=true" >> gradle.properties
         echo "android.nonTransitiveRClass=true" >> gradle.properties
     - name: Build APK with Gradle

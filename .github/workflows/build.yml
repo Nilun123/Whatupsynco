@@ -13,8 +13,15 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Setup Gradle
+    - name: Setup Gradle 8.5
       uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.5'
+    - name: Configure AndroidX Properties
+      working-directory: ./whatsapp_onedrive_autosync
+      run: |
+        echo "android.useAndroidX=true" >> gradle.properties
+        echo "android.nonTransitiveRClass=true" >> gradle.properties
     - name: Build APK with Gradle
       working-directory: ./whatsapp_onedrive_autosync
       run: gradle assembleDebug
